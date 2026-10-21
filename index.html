@@ -1,0 +1,235 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #090b14;
+            color: white;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 22px;
+            text-align: center;
+            border-bottom: 1px solid #252941;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+            color: #a78bfa;
+        }
+
+        header p {
+            color: #a7acc4;
+        }
+
+        #chat {
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 15px;
+            height: 60vh;
+            overflow-y: auto;
+        }
+
+        .message {
+            padding: 14px 17px;
+            margin: 12px 0;
+            border-radius: 14px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .bot {
+            background: #171b2c;
+            border: 1px solid #303650;
+        }
+
+        .user {
+            background: #4935a8;
+            margin-left: 15%;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 16px;
+            border: 1px solid #343951;
+            border-radius: 12px;
+            background: #151827;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            background: #8b5cf6;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #7040dc;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #858ba5;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            #chat {
+                height: 58vh;
+                margin: 10px auto;
+            }
+
+            header h1 {
+                font-size: 27px;
+            }
+
+            .input-area {
+                padding: 10px;
+            }
+
+            button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>✦ NEXUS AI</h1>
+        <p>Your ideas. Your intelligence. Your universe.</p>
+    </header>
+
+    <main id="chat" aria-live="polite">
+        <div class="message bot">
+            Hello! I am NEXUS AI. Welcome to my universe!<br>
+            I am your personal AI assistant. What should we talk about?
+        </div>
+    </main>
+
+    <div class="input-area">
+        <input
+            id="userInput"
+            type="text"
+            placeholder="Message NEXUS AI..."
+            autocomplete="off"
+            aria-label="Your message"
+        >
+        <button id="sendButton" type="button">Send</button>
+    </div>
+
+    <footer>
+        NEXUS AI • Your AI journey starts here
+    </footer>
+
+    <script>
+        const chat = document.getElementById("chat");
+        const input = document.getElementById("userInput");
+        const sendButton = document.getElementById("sendButton");
+
+        function addMessage(text, sender) {
+            const message = document.createElement("div");
+            message.className = "message " + sender;
+            message.textContent = text;
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function getAIResponse(text) {
+            const message = text.toLowerCase().trim();
+
+            if (/^(hi|hello|hey)\b/.test(message)) {
+                return "Hey! Welcome to NEXUS AI. How can I help you today?";
+            }
+
+            if (message.includes("your name")) {
+                return "I am NEXUS AI, your personal AI assistant!";
+            }
+
+            if (message.includes("who made you")) {
+                return "I am NEXUS AI, a chatbot created by my developer!";
+            }
+
+            if (message.includes("how are you")) {
+                return "I'm running smoothly! What would you like to explore?";
+            }
+
+            if (message.includes("help")) {
+                return "Of course! Tell me what you need help with, and I'll do my best.";
+            }
+
+            if (message.includes("time")) {
+                return "The time on your device is " +
+                    new Date().toLocaleTimeString() + ".";
+            }
+
+            if (message.includes("date")) {
+                return "Today's date on your device is " +
+                    new Date().toLocaleDateString() + ".";
+            }
+
+            if (message.includes("thank")) {
+                return "You're welcome! I'm happy to help.";
+            }
+
+            if (message.includes("bye")) {
+                return "Goodbye! Come back to NEXUS AI anytime.";
+            }
+
+            return "Interesting question! My basic brain doesn't know how to answer that yet. We'll improve NEXUS AI in the next stages!";
+        }
+
+        function sendMessage() {
+            const text = input.value.trim();
+
+            if (!text) return;
+
+            addMessage(text, "user");
+            input.value = "";
+
+            setTimeout(() => {
+                addMessage(getAIResponse(text), "bot");
+            }, 300);
+        }
+
+        sendButton.addEventListener("click", sendMessage);
+
+        input.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+
+</body>
+</html>
+```
